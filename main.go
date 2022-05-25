@@ -1,16 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"net/http"
 )
 
-func main() {
-	// handle route using handler function
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to new server!")
-	})
+func welcome(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Welcome to new server!")
+}
 
+func goodbye(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Goodbye")
+}
+
+func main() {
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/welcome", welcome)
+	mux.HandleFunc("/goodbye", goodbye)
 	// listen to port
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", mux)
 }
