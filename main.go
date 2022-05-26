@@ -3,6 +3,9 @@ package main
 import (
 	"io"
 	"net/http"
+	"time"
+
+	"go.uber.org/zap"
 )
 
 func welcome(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +21,13 @@ func goodbye(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+	logger.Info("Starting web server...",
+		// Structured context as strongly typed Field values.
+		zap.String("time", time.Now().String()),
+	)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", welcome)
