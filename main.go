@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"io"
 	"net/http"
 	"time"
@@ -22,11 +23,15 @@ func goodbye(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	loggingLevel := flag.String("logging", "INFO", "logging level")
+	flag.Parse()
+
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 	logger.Info("Starting web server...",
 		// Structured context as strongly typed Field values.
 		zap.String("time", time.Now().String()),
+		zap.String("logging level", *loggingLevel),
 	)
 
 	mux := http.NewServeMux()

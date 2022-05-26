@@ -5,4 +5,4 @@ clean:
 build:
 	go build -a -ldflags 'main.buildTime=$(date)' .
 run:
-	./go-server
+	./go-server --logging "DEBUG"
