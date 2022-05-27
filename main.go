@@ -17,6 +17,7 @@ func welcome(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	loggingLevel := flag.String("logging", "INFO", "logging level")
+	port := flag.String("port", "8080", "listening port")
 	flag.Parse()
 
 	logger, _ := zap.NewProduction()
@@ -31,5 +32,5 @@ func main() {
 	mux.HandleFunc("/", welcome)
 	mux.HandleFunc("/echo/", echo.Echo)
 	// listen to port
-	http.ListenAndServe(":8080", mux)
+	http.ListenAndServe(":"+*port, mux)
 }
