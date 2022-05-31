@@ -1,7 +1,6 @@
-package main
+package echo
 
 import (
-	"go-server/pkg/echo"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,7 +11,7 @@ func Test_Echo(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	expectedOutput := "hello!"
-	h := http.HandlerFunc(echo.Echo)
+	h := http.HandlerFunc(Echo)
 
 	h.ServeHTTP(w, req)
 	body := w.Body.String()

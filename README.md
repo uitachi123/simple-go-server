@@ -1,6 +1,12 @@
 # go-server
 elegant http server
 
+# features
+- [x] use `ServeMux` for routing
+- [x] include testing cases examples
+- [x] set up in-memory database to demonstrate database access layer
+
+
 # usage
 ```
 make all
