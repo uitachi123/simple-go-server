@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"go-server/pkg/db"
 	"go-server/pkg/echo"
 	"go.uber.org/zap"
 )
@@ -27,6 +28,11 @@ func main() {
 		zap.String("time", time.Now().String()),
 		zap.String("logging level", *loggingLevel),
 	)
+
+	_, err := db.Db()
+	if err != nil {
+		logger.Error("Error initializing database", zap.Error(err))
+	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", welcome)

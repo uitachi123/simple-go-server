@@ -30,5 +30,23 @@ func Db() (*memdb.MemDB, error) {
 			},
 		},
 	}
-	return memdb.NewMemDB(schema)
+
+	db, err := memdb.NewMemDB(schema)
+	if err != nil {
+		return nil, err
+	}
+
+	// Insert data
+	txn := db.Txn(true)
+	users := []*User{
+		&User{"bob@test.com", "Bob"},
+		&User{"alice@test.com", "Alice"},
+	}
+	for _, u := range users {
+		if err := txn.Insert("user", u); err != nil {
+			return db, err
+		}
+	}
+	txn.Commit()
+	return db, nil
 }

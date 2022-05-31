@@ -13,18 +13,7 @@ func Test_Db(t *testing.T) {
 	if db == nil {
 		panic("null db pointer")
 	}
-	txn := db.Txn(true)
-	users := []*User{
-		&User{"bob@test.com", "Bob"},
-		&User{"alice@test.com", "Alice"},
-	}
-	for _, u := range users {
-		if err := txn.Insert("user", u); err != nil {
-			t.Errorf("Error inserting user %v: %v", u, err)
-		}
-	}
-	txn.Commit()
-	txn = db.Txn(false)
+	txn := db.Txn(false)
 	defer txn.Abort()
 
 	// test id indexing
