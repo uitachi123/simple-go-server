@@ -9,11 +9,12 @@ type User struct {
 	Name  string
 }
 
-type DBHandler struct {
-	db *memdb.MemDB
-}
+var d *memdb.MemDB
 
-func Init() (*DBHandler, error) {
+func Init() (*memdb.MemDB, error) {
+	if d != nil {
+		return d, nil
+	}
 	// Create the DB schema
 	schema := &memdb.DBSchema{
 		Tables: map[string]*memdb.TableSchema{
@@ -35,22 +36,22 @@ func Init() (*DBHandler, error) {
 		},
 	}
 
-	db, err := memdb.NewMemDB(schema)
+	d, err := memdb.NewMemDB(schema)
 	if err != nil {
 		return nil, err
 	}
 
 	// Insert data
-	txn := db.Txn(true)
+	txn := d.Txn(true)
 	users := []*User{
 		&User{"bob@test.com", "Bob"},
 		&User{"alice@test.com", "Alice"},
 	}
 	for _, u := range users {
 		if err := txn.Insert("user", u); err != nil {
-			return &DBHandler{db}, err
+			return d, err
 		}
 	}
 	txn.Commit()
-	return &DBHandler{db}, nil
+	return d, nil
 }

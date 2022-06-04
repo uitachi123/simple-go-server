@@ -12,7 +12,24 @@ func Users(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, args[len(args)-1])
 }
 
-func list(handler *db.DBHandler) []db.User {
+func list() ([]db.User, error) {
+	d, err := db.Init()
+	if err != nil {
+		return []db.User{}, err
+	}
+	txn := d.Txn(false)
+	defer txn.Abort()
+	iter, err := txn.Get("user", "id")
+	if err != nil {
+		return []db.User{}, err
+	}
 	var res []db.User
-	return res
+	for {
+		elem := iter.Next()
+		if elem == nil {
+			break
+		}
+		res = append(res, *elem.(*db.User))
+	}
+	return res, nil
 }
