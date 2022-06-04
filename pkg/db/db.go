@@ -5,8 +5,8 @@ import (
 )
 
 type User struct {
-	Email string
-	Name  string
+	Email string `json:"email"`
+	Name  string `json:"name"`
 }
 
 var d *memdb.MemDB

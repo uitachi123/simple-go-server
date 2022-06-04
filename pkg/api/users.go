@@ -1,15 +1,22 @@
 package api
 
 import (
+	"encoding/json"
 	"go-server/pkg/db"
 	"io"
 	"net/http"
-	"strings"
 )
 
 func Users(w http.ResponseWriter, r *http.Request) {
-	args := strings.Split(r.URL.String(), "/")
-	io.WriteString(w, args[len(args)-1])
+	users, err := list()
+	if err != nil {
+		io.WriteString(w, err.Error())
+	}
+	b, err := json.Marshal(users)
+	if err != nil {
+		io.WriteString(w, err.Error())
+	}
+	io.WriteString(w, string(b))
 }
 
 func list() ([]db.User, error) {

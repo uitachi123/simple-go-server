@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"go-server/pkg/api"
 	"go-server/pkg/db"
 	"go-server/pkg/echo"
 
@@ -38,6 +39,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", welcome)
 	mux.HandleFunc("/echo/", echo.Echo)
+	mux.HandleFunc("/users", api.Users)
 	// listen to port
 	http.ListenAndServe(":"+*port, mux)
 }

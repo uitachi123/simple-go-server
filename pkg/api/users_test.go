@@ -1,6 +1,10 @@
 package api
 
 import (
+	"encoding/json"
+	"go-server/pkg/db"
+	"net/http"
+	"net/http/httptest"
 	"reflect"
 	"testing"
 )
@@ -10,16 +14,36 @@ func Test_List(t *testing.T) {
 	if !reflect.DeepEqual(len(users), 2) {
 		t.Errorf("Wrong user counts - expected 2, actual %d", len(users))
 	}
-	if !reflect.DeepEqual("alice@test.com", users[0].Email) {
-		t.Errorf("Data mismatch, expected:  %s got: %s", "alice@test.com", users[0].Email)
+	user := db.User{Email: "alice@test.com", Name: "Alice"}
+	if !reflect.DeepEqual(user, users[0]) {
+		t.Errorf("Data mismatch, expected:  %v got: %v", user, users[0])
 	}
-	if !reflect.DeepEqual("Alice", users[0].Name) {
-		t.Errorf("Data mismatch, expected:  %s got: %s", "Alice", users[0].Name)
+	user = db.User{Email: "bob@test.com", Name: "Bob"}
+	if !reflect.DeepEqual(user, users[1]) {
+		t.Errorf("Data mismatch, expected:  %v got: %v", user, users[1])
 	}
-	if !reflect.DeepEqual("bob@test.com", users[1].Email) {
-		t.Errorf("Data mismatch, expected:  %s got: %s", "bob@test.com", users[1].Email)
+}
+
+func Test_Users(t *testing.T) {
+	req := httptest.NewRequest("GET", "/users", nil)
+	w := httptest.NewRecorder()
+
+	expectedOutput, err := json.Marshal(
+		[]db.User{
+			db.User{Email: "alice@test.com", Name: "Alice"},
+			db.User{Email: "bob@test.com", Name: "Bob"},
+		},
+	)
+	if err != nil {
+		t.Errorf("error marshal expected return json: %v", err)
 	}
-	if !reflect.DeepEqual("Bob", users[1].Name) {
-		t.Errorf("Data mismatch, expected:  %s got: %s", "Bob", users[1].Name)
+	expected := string(expectedOutput)
+	h := http.HandlerFunc(Users)
+
+	h.ServeHTTP(w, req)
+	body := w.Body.String()
+
+	if body != expected {
+		t.Errorf("Expected %v\tGot %v", expected, body)
 	}
 }
