@@ -8,6 +8,7 @@ import (
 
 	"go-server/pkg/db"
 	"go-server/pkg/echo"
+
 	"go.uber.org/zap"
 )
 
@@ -29,7 +30,7 @@ func main() {
 		zap.String("logging level", *loggingLevel),
 	)
 
-	_, err := db.Db()
+	_, err := db.Init()
 	if err != nil {
 		logger.Error("Error initializing database", zap.Error(err))
 	}

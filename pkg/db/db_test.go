@@ -5,8 +5,9 @@ import (
 	"testing"
 )
 
-func Test_Db(t *testing.T) {
-	db, err := Db()
+func Test_Init(t *testing.T) {
+	DBHandler, err := Init()
+	db := DBHandler.db
 	if err != nil {
 		t.Errorf("Error creating database %v", err)
 	}
