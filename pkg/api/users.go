@@ -2,9 +2,10 @@ package api
 
 import (
 	"encoding/json"
-	"go-server/pkg/db"
 	"io"
 	"net/http"
+
+	"github.com/uitachi123/simple-go-server/pkg/db"
 )
 
 func Users(w http.ResponseWriter, r *http.Request) {

@@ -1,4 +1,4 @@
-module go-server
+module github.com/uitachi123/simple-go-server
 
 go 1.18
 

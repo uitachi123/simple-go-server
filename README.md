@@ -22,15 +22,15 @@ go test ./... -test.v
 === RUN   Test_Users
 --- PASS: Test_Users (0.00s)
 PASS
-ok      go-server/pkg/api       (cached)
+ok      github.com/uitachi123/simple-go-server/pkg/api       (cached)
 === RUN   Test_Init
 --- PASS: Test_Init (0.00s)
 PASS
-ok      go-server/pkg/db        (cached)
+ok      github.com/uitachi123/simple-go-server/pkg/db        (cached)
 === RUN   Test_Echo
 --- PASS: Test_Echo (0.00s)
 PASS
-ok      go-server/pkg/echo      (cached)
+ok      github.com/uitachi123/simple-go-server/pkg/echo      (cached)
 ```
 
 # server options

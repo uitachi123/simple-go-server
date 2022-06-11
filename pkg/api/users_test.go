@@ -2,11 +2,12 @@ package api
 
 import (
 	"encoding/json"
-	"go-server/pkg/db"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
+
+	"github.com/uitachi123/simple-go-server/pkg/db"
 )
 
 func Test_List(t *testing.T) {

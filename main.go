@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"go-server/pkg/api"
-	"go-server/pkg/db"
-	"go-server/pkg/echo"
+	"github.com/uitachi123/simple-go-server/pkg/api"
+	"github.com/uitachi123/simple-go-server/pkg/db"
+	"github.com/uitachi123/simple-go-server/pkg/echo"
 
 	"go.uber.org/zap"
 )
