@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -14,10 +13,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
-
-func welcome(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Welcome to new server!")
-}
 
 func setUpLogger(level string) *zap.Logger {
 	l, err := zapcore.ParseLevel(strings.ToLower(level))
@@ -56,7 +51,8 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", welcome)
+	fs := http.FileServer(http.Dir("public"))
+	mux.Handle("/", fs)
 	mux.HandleFunc("/echo/", echo.Echo)
 	mux.HandleFunc("/users", api.Users)
 	// listen to port
