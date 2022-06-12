@@ -1,3 +1,5 @@
+LEVEL?="INFO"
+
 .PHONY: all test clean build run test
 all: clean test build run
 
@@ -6,6 +8,6 @@ clean:
 build:
 	go build -a -ldflags 'main.buildTime=$(date)' .
 run:
-	./simple-go-server --logging "DEBUG" --port "8080"
+	./simple-go-server --logging $(LEVEL) --port "8080"
 test:
 	go test ./... -test.v
