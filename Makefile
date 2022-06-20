@@ -1,13 +1,17 @@
 LEVEL?="INFO"
 
-.PHONY: all test clean build run test
-all: clean test build run
+.PHONY: all test clean build api ui serve test
+all: clean test build serve
 
 clean:
 	rm -rf ./simple-go-server
 build:
 	go build -a -ldflags 'main.buildTime=$(date)' .
-run:
+api:
 	./simple-go-server --logging $(LEVEL) --port "8080"
+ui:
+	npm start
+serve:
+	make -j api ui
 test:
 	go test ./... -test.v

@@ -10,7 +10,6 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "concurrently": "^7.2.2",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,7 +19,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "serve": "concurrently 'make run' 'npm run start'",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
