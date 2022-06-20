@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -51,10 +52,11 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	fs := http.FileServer(http.Dir("public"))
-	mux.Handle("/", fs)
 	mux.HandleFunc("/echo/", echo.Echo)
 	mux.HandleFunc("/users", api.Users)
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "OK")
+	})
 	// listen to port
 	http.ListenAndServe(":"+*port, mux)
 }
