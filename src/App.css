@@ -3,6 +3,11 @@
   margin: 100px;
 }
 
+.AppInfo {
+  margin: 100px;
+  width: auto;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
