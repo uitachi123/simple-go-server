@@ -5,13 +5,14 @@ simple http server
 - [x] use `ServeMux` for routing
 - [x] include testing cases examples
 - [x] set up in-memory database to demonstrate database access
+- [x] use [create-react-app](https://create-react-app.dev/) template to add an simple UI demonstrating data fetch
 
-# clean, test, build and run
+# clean, test, build and serve
 ```
 make all
 ```
 
-# test cases
+# run unit test cases
 ```
 make test
 
@@ -43,22 +44,22 @@ Usage of ./go-server:
 ```
 
 # server APIs
-Home:
-```
-http://localhost:8080/
-```
-response:
-```
-Welcome to new server!
-```
-<br/><br/>
-API:
+testing:
 ```
 localhost:8080/echo/testdata
 ```
 response:
 ```
 testdata!
+```
+<br/><br/>
+health check:
+```
+localhost:8080/healthz
+```
+response:
+```
+OK
 ```
 <br/><br/>
 API:
@@ -78,3 +79,7 @@ response:
       },
 ]
 ```
+
+# UI
+it can fetch data from API via path `localhost:8080/users`
+![](ui-readme.png)
