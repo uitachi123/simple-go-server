@@ -8,7 +8,7 @@ clean:
 build:
 	go build -a -ldflags 'main.buildTime=$(date)' .
 deps:
-    npm i
+	npm i
 api:
 	./simple-go-server --logging $(LEVEL) --port "8080"
 ui:
