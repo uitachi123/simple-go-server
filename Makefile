@@ -10,7 +10,7 @@ build:
 api:
 	./simple-go-server --logging $(LEVEL) --port "8080"
 ui:
-	npm run build && npm start
+	npm i && npm run build && npm start
 serve:
 	make -j api ui
 test:
